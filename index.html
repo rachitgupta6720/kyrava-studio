@@ -143,11 +143,9 @@ h2{font-family:var(--f-head);font-weight:600;font-size:26px;margin:0;letter-spac
 .person a:hover,.person a:focus-visible{color:var(--paper)}
 .person a:hover .pr,.person a:focus-visible .pr{color:var(--paper)}
 .person a:focus-visible{outline-offset:-2px}
-.avatar{flex:none;width:96px;height:96px;border:1px solid currentColor;background:var(--paper);display:block;position:relative;overflow:hidden}
-.avatar canvas,.avatar img{position:absolute;inset:0;width:100%;height:100%;display:block}
-.avatar canvas{image-rendering:pixelated}
-.avatar img{object-fit:cover;filter:grayscale(1) contrast(1.1);opacity:0;transition:opacity .25s steps(4)}
-.person a:hover .avatar img,.person a:focus-visible .avatar img{opacity:1}
+.avatar{flex:none;width:112px;height:112px;border:1px solid currentColor;background:var(--paper);display:block;position:relative;overflow:hidden}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .3s ease}
+.person a:hover .avatar img,.person a:focus-visible .avatar img{filter:none}
 .avatar svg{width:100%;height:100%;display:block}
 .avatar svg rect{fill:var(--ink)}
 .pinfo{display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -159,7 +157,7 @@ h2{font-family:var(--f-head);font-weight:600;font-size:26px;margin:0;letter-spac
 @media (max-width:760px){
   .people{grid-template-columns:1fr}
   .person + .person{border-left:0;border-top:1px solid var(--rule)}
-  .avatar{width:80px;height:80px}
+  .avatar{width:88px;height:88px}
 }
 
 /* contact */
@@ -366,17 +364,7 @@ footer a{color:var(--ink-2)}
   document.querySelectorAll('.avatar').forEach(el=>{
     monogram(el);
     const img=new Image();img.alt='';
-    img.onload=()=>{
-      const N=48,c=document.createElement('canvas');c.width=c.height=N;
-      const x=c.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';const m=Math.min(img.naturalWidth,img.naturalHeight);
-      x.drawImage(img,(img.naturalWidth-m)/2,(img.naturalHeight-m)/2,m,m,0,0,N,N);
-      const d=x.getImageData(0,0,N,N),p=d.data;
-      const L=[];for(let i=0;i<p.length;i+=4)L.push(.3*p[i]+.59*p[i+1]+.11*p[i+2]);
-      const S=[...L].sort((a,b)=>a-b),rank=v=>{let lo=0,hi=S.length;while(lo<hi){const m=(lo+hi)>>1;S[m]<v?lo=m+1:hi=m}return lo/S.length};
-      L.forEach((l,j)=>{const v=Math.round(rank(l)*4)*63.75;p[j*4]=p[j*4+1]=p[j*4+2]=v});
-      x.putImageData(d,0,0);
-      el.innerHTML='';el.appendChild(c);el.appendChild(img);
-    };
+    img.onload=()=>{el.innerHTML='';el.appendChild(img)};
     img.src=el.dataset.photo;
   });
 
