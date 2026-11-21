@@ -127,6 +127,9 @@ h2{font-family:var(--f-head);font-weight:600;font-size:26px;margin:0;letter-spac
 .soon-bar i:nth-child(2){animation-delay:.3s}.soon-bar i:nth-child(3){animation-delay:.6s}.soon-bar i:nth-child(4){animation-delay:.9s}
 @keyframes load{0%,50%{opacity:1}51%,100%{opacity:.15}}
 
+.icon rect.pm-mark{fill:#a43f22}
+.pname h3.pm-word{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",var(--f-head);font-weight:700;letter-spacing:-.03em;overflow-wrap:anywhere}
+.pm-word small{font-size:.55em;font-weight:400;letter-spacing:0;opacity:.7;margin-left:2px}
 /* principles */
 .principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-bottom:1px solid var(--rule)}
 .principles div{padding:24px 20px 28px 0}
@@ -180,6 +183,7 @@ footer a{color:var(--ink-2)}
   .icon svg{width:36px;height:36px}
   .go{grid-column:2;padding-top:0}
   .pname h3{font-size:28px}
+  .pname h3.pm-word{font-size:24px}
   .principles{grid-template-columns:1fr}
   .principles div,.principles div + div{padding:18px 0;border-left:0;border-top:1px solid var(--rule)}
   .contact{grid-template-columns:1fr}
@@ -210,7 +214,7 @@ footer a{color:var(--ink-2)}
       <div>
         <p class="eyebrow">Kyrava Studio · Bengaluru, India</p>
         <h1>Small, useful software for everyday Bharat.</h1>
-        <p class="lede">We build technology rooted in Indian daily life and real needs: <strong>a shop for every seller, a voice for every keyboard, a memory for every promise.</strong> Each one made with restraint, by one person.</p>
+        <p class="lede">We build technology rooted in Indian daily life and real needs: <strong>a shop for every seller, a voice for every keyboard, a memory for every promise, a library for every product manager.</strong> Each one made with restraint, by one person.</p>
         <div class="hero-ctas">
           <a class="btn" href="#apps">See the apps <span aria-hidden="true">↓</span></a>
           <a class="btn ghost" href="#contact">Work with us</a>
@@ -225,7 +229,7 @@ footer a{color:var(--ink-2)}
 
   <section id="apps">
     <div class="wrap">
-      <div class="sec-head"><h2>What we make</h2><p>3 apps · 2 live</p></div>
+      <div class="sec-head"><h2>What we make</h2><p>4 products · 3 live</p></div>
       <ul class="products">
         <li class="product">
           <a href="https://myshop.kyrava.in" target="_blank" rel="noopener">
@@ -249,6 +253,18 @@ footer a{color:var(--ink-2)}
               <p class="meta">macOS · Free download</p>
             </div>
             <span class="go">Get Freeflo <span class="arr" aria-hidden="true">→</span></span>
+          </a>
+        </li>
+        <li class="product">
+          <a href="https://productmanagement.si/" target="_blank" rel="noopener">
+            <span class="icon"><svg viewBox="0 0 9 9" aria-hidden="true" shape-rendering="crispEdges"><rect class="pm-mark" x="2" y="2" width="5" height="5"/></svg></span>
+            <div>
+              <div class="pname"><h3 class="pm-word">productmanagement<small>.si</small></h3><span class="tag live">Live</span></div>
+              <p class="what">A free learning library for product people. Practical guides and curated videos on discovery, strategy, metrics, AI and leadership, organised by career stage.</p>
+              <p class="why"><b>Why it matters today</b>More people in India are moving into product roles, but most learn the craft from scattered posts and expensive courses. One library that says what each resource helps with, and where to start for your stage, saves months of guesswork.</p>
+              <p class="meta">Web · Free</p>
+            </div>
+            <span class="go">Open productmanagement.si <span class="arr" aria-hidden="true">→</span></span>
           </a>
         </li>
         <li class="product soon">
@@ -320,7 +336,7 @@ footer a{color:var(--ink-2)}
 <footer>
   <div class="wrap">
     <span>© <span id="yr">2026</span> Kyrava Studio · Bengaluru, India</span>
-    <span><a href="https://myshop.kyrava.in" target="_blank" rel="noopener">MyShop</a> · <a href="https://rachitgupta6720.github.io/freeflo/" target="_blank" rel="noopener">Freeflo</a> · Kept</span>
+    <span><a href="https://myshop.kyrava.in" target="_blank" rel="noopener">MyShop</a> · <a href="https://rachitgupta6720.github.io/freeflo/" target="_blank" rel="noopener">Freeflo</a> · <a href="https://productmanagement.si/" target="_blank" rel="noopener">productmanagement.si</a> · Kept</span>
   </div>
 </footer>
 
