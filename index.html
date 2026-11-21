@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kyrava Studio</title>
+<meta name="description" content="Kyrava Studio is a one-person software studio in Bengaluru building small, useful tools for everyday India: MyShop, Freeflo and Kept.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600&family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap">
+<meta property="og:title" content="Kyrava Studio">
+<meta property="og:description" content="Small, useful software for everyday Bharat. MyShop, Freeflo and Kept.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<style>
+/* Layout: one narrow left-aligned column on a faint pixel grid; hero = words left, live pixel lotus right; products as full-width rows that invert on hover. */
+:root{
+  --paper:#ffffff;
+  --ink:#0a0a0a;
+  --ink-2:#4a4a4a;
+  --ink-3:#8a8a8a;
+  --rule:#e4e4e4;
+  --grid:#f1f1f1;
+  --f-pixel:"Pixelify Sans","Silkscreen",ui-monospace,monospace;
+  --f-body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --px:4px;
+  --wrap:960px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0a0a0a;--ink:#f5f5f5;--ink-2:#b4b4b4;--ink-3:#767676;--rule:#262626;--grid:#141414;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0a0a0a;--ink:#f5f5f5;--ink-2:#b4b4b4;--ink-3:#767676;--rule:#262626;--grid:#141414;color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--f-body);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  transition:background-color .2s steps(3),color .2s steps(3);
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+::selection{background:var(--ink);color:var(--paper)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-pixel);font-size:20px;letter-spacing:.01em}
+.brand svg{width:28px;height:auto}
+.hdr-right{display:flex;align-items:center;gap:18px;font-family:var(--f-mono);font-size:12px;color:var(--ink-2)}
+.clock{font-variant-numeric:tabular-nums;white-space:nowrap}
+.invert{
+  appearance:none;border:1px solid var(--ink);background:var(--paper);color:var(--ink);
+  font:500 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;
+  height:30px;padding:0 10px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+}
+.invert i{width:10px;height:10px;background:linear-gradient(90deg,var(--ink) 50%,var(--paper) 50%);outline:1px solid var(--ink);display:block}
+.invert:hover{background:var(--ink);color:var(--paper)}
+.invert:hover i{outline-color:var(--paper)}
+
+/* hero */
+.hero{padding-block:56px 40px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 18px}
+h1{font-family:var(--f-pixel);font-weight:500;font-size:clamp(40px,7vw,76px);line-height:.98;letter-spacing:-.01em;margin:0 0 22px;text-wrap:balance}
+.lede{font-size:18px;color:var(--ink-2);max-width:34ch;margin:0 0 28px}
+.lede strong{color:var(--ink);font-weight:500}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;
+  font:500 14px/1 var(--f-mono);text-decoration:none;border:1px solid var(--ink);
+  background:var(--ink);color:var(--paper);
+  box-shadow:var(--px) var(--px) 0 var(--ink-3);transition:transform .12s steps(2),box-shadow .12s steps(2);
+}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink-3)}
+.btn.ghost{background:var(--paper);color:var(--ink)}
+.stage{position:relative;aspect-ratio:53/46;width:100%;max-width:100%;touch-action:pan-y}
+.stage canvas{width:100%;height:100%;display:block;cursor:crosshair}
+.stage-hint{position:absolute;right:0;bottom:-4px;font:12px var(--f-mono);color:var(--ink-3)}
+
+/* building solo divider */
+.solo{display:flex;align-items:center;gap:10px;margin:44px 0 0;color:var(--ink)}
+.solo svg{flex:1;height:14px;min-width:0}
+.solo svg.r{transform:scaleX(-1)}
+.solo span{font-family:var(--f-pixel);font-size:22px;white-space:nowrap}
+.solo .dot{animation:blink 1.6s steps(1) infinite}
+.solo .dot:nth-of-type(2){animation-delay:.2s}.solo .dot:nth-of-type(3){animation-delay:.4s}
+@keyframes blink{0%,60%{opacity:1}61%,100%{opacity:.15}}
+
+/* sections */
+section{padding-block:56px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:0}
+h2{font-family:var(--f-pixel);font-weight:500;font-size:28px;margin:0;letter-spacing:.01em}
+.sec-head p{margin:0;font:12px var(--f-mono);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+
+/* product rows */
+.products{list-style:none;margin:0;padding:0}
+.product{border-bottom:1px solid var(--rule);position:relative}
+.product > a,.product > div.row{
+  display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:20px 24px;align-items:start;
+  padding:28px 12px;text-decoration:none;color:var(--ink);position:relative;isolation:isolate;
+}
+.product > a::before{
+  content:"";position:absolute;inset:0;background:var(--ink);z-index:-1;
+  clip-path:inset(0 100% 0 0);transition:clip-path .28s steps(8);
+}
+.product > a:hover::before,.product > a:focus-visible::before{clip-path:inset(0 0 0 0)}
+.product > a:hover,.product > a:focus-visible{color:var(--paper)}
+.product > a:hover .why,.product > a:focus-visible .why,
+.product > a:hover .what,.product > a:focus-visible .what{color:var(--paper)}
+.product > a:focus-visible{outline-offset:-2px}
+.icon svg{width:48px;height:48px;display:block}
+.icon rect{fill:currentColor}
+.pname{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin:0 0 6px}
+.pname h3{font-family:var(--f-pixel);font-weight:500;font-size:32px;line-height:1;margin:0}
+.tag{font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid currentColor;padding:5px 7px}
+.tag.live::before{content:"";display:inline-block;width:6px;height:6px;background:currentColor;margin-right:6px;vertical-align:1px;animation:blink 1.2s steps(1) infinite}
+.what{font-size:17px;color:var(--ink);margin:0 0 14px;max-width:56ch}
+.why{font-size:15px;color:var(--ink-2);margin:0;max-width:62ch}
+.why b{font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:8px;opacity:.7}
+.meta{margin-top:14px;font:12px var(--f-mono);opacity:.75}
+.go{font:500 13px/1 var(--f-mono);display:flex;align-items:center;gap:8px;white-space:nowrap;padding-top:10px}
+.go .arr{display:inline-block;transition:transform .2s steps(3)}
+.product > a:hover .arr{transform:translateX(6px)}
+.product.soon .row{color:var(--ink)}
+.product.soon .icon{opacity:.55}
+.soon-bar{display:inline-flex;gap:3px;vertical-align:middle;margin-left:4px}
+.soon-bar i{width:6px;height:6px;background:currentColor;opacity:.15;animation:load 1.8s steps(1) infinite}
+.soon-bar i:nth-child(2){animation-delay:.3s}.soon-bar i:nth-child(3){animation-delay:.6s}.soon-bar i:nth-child(4){animation-delay:.9s}
+@keyframes load{0%,50%{opacity:1}51%,100%{opacity:.15}}
+
+/* principles */
+.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-bottom:1px solid var(--rule)}
+.principles div{padding:24px 20px 28px 0}
+.principles div + div{padding-left:20px;border-left:1px solid var(--rule)}
+.principles h4{font-family:var(--f-pixel);font-weight:500;font-size:19px;margin:0 0 8px}
+.principles p{margin:0;font-size:15px;color:var(--ink-2)}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding-top:28px}
+.contact p{margin:0;font-size:18px;color:var(--ink-2);max-width:44ch}
+.mail{display:flex;align-items:center;gap:0;border:1px solid var(--ink)}
+.mail code{font:500 15px var(--f-mono);padding:0 14px;height:44px;display:flex;align-items:center;user-select:all}
+.mail button{appearance:none;border:0;border-left:1px solid var(--ink);background:var(--ink);color:var(--paper);font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;height:44px;padding:0 14px;cursor:pointer;min-width:76px}
+
+footer{border-top:1px solid var(--ink);padding-block:22px 32px;font:12px var(--f-mono);color:var(--ink-3)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px}
+footer a{color:var(--ink-2)}
+
+@media (max-width:760px){
+  .hero{padding-block:28px 24px}
+  .hero .wrap{grid-template-columns:1fr}
+  .stage{order:-1;max-width:360px;justify-self:center}
+  .stage-hint{display:none}
+  .lede{font-size:17px}
+  .product > a,.product > div.row{grid-template-columns:40px minmax(0,1fr);padding:24px 8px}
+  .icon svg{width:36px;height:36px}
+  .go{grid-column:2;padding-top:0}
+  .pname h3{font-size:28px}
+  .principles{grid-template-columns:1fr}
+  .principles div,.principles div + div{padding:18px 0;border-left:0;border-top:1px solid var(--rule)}
+  .contact{grid-template-columns:1fr}
+  .hdr-right .clock{display:none}
+  .solo span{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before{animation:none!important;transition:none!important}
+}
+</style>
+<!-- Meta Pixel Code (kept from the old site) -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '1520521126447425');fbq('track', 'PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1520521126447425&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Kyrava Studio home"><svg id="mark" viewBox="0 0 53 42" aria-hidden="true" shape-rendering="crispEdges"></svg>Kyrava Studio</a>
+    <div class="hdr-right">
+      <span class="clock" id="clock">Bengaluru · --:-- IST</span>
+      <button class="invert" id="invert" type="button" aria-label="Switch between black and white"><i></i>Invert</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Kyrava Studio · Bengaluru, India</p>
+        <h1>Small, useful software for everyday Bharat.</h1>
+        <p class="lede">We build technology rooted in Indian daily life and real needs: <strong>a shop for every seller, a voice for every keyboard, a memory for every promise.</strong> Each one made with restraint, by one person.</p>
+        <div class="hero-ctas">
+          <a class="btn" href="#apps">See the apps <span aria-hidden="true">↓</span></a>
+          <a class="btn ghost" href="#contact">Work with us</a>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <canvas id="lotus" aria-label="Kyrava lotus, drawn in pixels. Move over it to scatter the pixels; tap to bloom." role="img"></canvas>
+        <span class="stage-hint">move to scatter · click to bloom</span>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="solo" aria-label="building solo">
+        <svg viewBox="0 0 160 14" preserveAspectRatio="xMaxYMid meet" aria-hidden="true" shape-rendering="crispEdges">
+          <rect x="0" y="8" width="96" height="2" fill="currentColor"/><rect x="96" y="6" width="4" height="2" fill="currentColor"/><rect x="100" y="4" width="10" height="2" fill="currentColor"/><rect x="110" y="6" width="4" height="2" fill="currentColor"/><rect x="114" y="8" width="8" height="2" fill="currentColor"/>
+          <rect x="122" y="5" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/>
+          <rect class="dot" x="138" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="145" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="152" y="10" width="3" height="3" fill="currentColor"/>
+        </svg>
+        <span>building solo</span>
+        <svg class="r" viewBox="0 0 160 14" preserveAspectRatio="xMaxYMid meet" aria-hidden="true" shape-rendering="crispEdges">
+          <rect x="0" y="8" width="96" height="2" fill="currentColor"/><rect x="96" y="6" width="4" height="2" fill="currentColor"/><rect x="100" y="4" width="10" height="2" fill="currentColor"/><rect x="110" y="6" width="4" height="2" fill="currentColor"/><rect x="114" y="8" width="8" height="2" fill="currentColor"/>
+          <rect x="122" y="5" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/>
+          <rect class="dot" x="138" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="145" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="152" y="10" width="3" height="3" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <section id="apps">
+    <div class="wrap">
+      <div class="sec-head"><h2>What we make</h2><p>3 apps · 2 live</p></div>
+      <ul class="products">
+        <li class="product">
+          <a href="https://myshop.kyrava.in" target="_blank" rel="noopener">
+            <span class="icon" data-icon="shop"></span>
+            <div>
+              <div class="pname"><h3>MyShop</h3><span class="tag live">Live</span></div>
+              <p class="what">Your own online shop, set up from your phone in minutes. Add products, share one link, take orders and payments.</p>
+              <p class="why"><b>Why it matters today</b>Most small sellers in India already sell on WhatsApp and Instagram, but their catalogue lives in chats and screenshots. A real shop link with photos, prices and payments lets a neighbourhood store look as trustworthy as a big brand, without hiring a developer.</p>
+              <p class="meta">Android · Web · myshop.kyrava.in</p>
+            </div>
+            <span class="go">Open MyShop <span class="arr" aria-hidden="true">→</span></span>
+          </a>
+        </li>
+        <li class="product">
+          <a href="https://rachitgupta6720.github.io/freeflo/" target="_blank" rel="noopener">
+            <span class="icon" data-icon="voice"></span>
+            <div>
+              <div class="pname"><h3>Freeflo</h3><span class="tag live">Live</span></div>
+              <p class="what">Speak, and your words appear wherever you are typing on your Mac. English and Hindi, fully offline.</p>
+              <p class="why"><b>Why it matters today</b>We think faster than we type, and many of us think in two languages at once. Most dictation tools send your voice to a server. Freeflo runs on your own Mac, so what you say never leaves it, and it works without the internet.</p>
+              <p class="meta">macOS · Free download</p>
+            </div>
+            <span class="go">Get Freeflo <span class="arr" aria-hidden="true">→</span></span>
+          </a>
+        </li>
+        <li class="product soon">
+          <div class="row" aria-label="Kept, coming soon">
+            <span class="icon" data-icon="kept"></span>
+            <div>
+              <div class="pname"><h3>Kept</h3><span class="tag">On the way</span></div>
+              <p class="what">Say a promise out loud, and Kept reminds you until it is done.</p>
+              <p class="why"><b>Why it matters today</b>The things we drop are rarely big projects. They are small promises made in passing: “I’ll send it by Thursday”, “I’ll call you back”. Kept hears what, who and when, keeps nudging until you tick it off, and keeps everything on your phone. It understands a bit of Hinglish too.</p>
+              <p class="meta">Android · Website coming soon</p>
+            </div>
+            <span class="go">Coming soon <span class="soon-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></span></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><h2>How we build</h2><p>Same rules for every app</p></div>
+      <div class="principles">
+        <div><h4>Rooted in daily life</h4><p>Each app starts from something people in India already do every day, then removes the friction from it.</p></div>
+        <div><h4>Private by default</h4><p>Where it can, the work happens on your own device. Freeflo and Kept never need to send your voice anywhere.</p></div>
+        <div><h4>Made with restraint</h4><p>Few screens, few settings, plain words. If a feature needs a tutorial, it gets cut or redesigned.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head"><h2>Work with us</h2><p>Partners, feedback, ideas</p></div>
+      <div class="contact">
+        <p>Running a small business, testing Kept, or building something for Bharat? Write in. Every email is read by the person who builds the apps.</p>
+        <div class="mail"><code id="email">sharanrachitgupta@gmail.com</code><button type="button" id="copy">Copy</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Kyrava Studio · Bengaluru, India</span>
+    <span><a href="https://myshop.kyrava.in" target="_blank" rel="noopener">MyShop</a> · <a href="https://rachitgupta6720.github.io/freeflo/" target="_blank" rel="noopener">Freeflo</a> · Kept</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const LOTUS=["..........................#..........................","........................##.##........................","..........................#..........................",".....................................................",".....................................................","..............##.....................##..............","..........................#..........................","..........................#..........................","........................#####........................",".......##..............###.###..............##.......","......................##.....##......................","......................##.....##......................",".....................##.......##.....................","............##.......##.......##.......##............","............####....##.........##....####............","............#.###...##.........##...###.#............","............#...#...#...........#...#...#............","............#....#..#.....#.....#..#....#............","...#........#.......#...#####...#.......#........#...","..#.#.......#.....###...#####...###.....#.......#.#..","...#........#.....##...#######...##.....#........#...","............#.....##...#######...##.....#............","............#.....##..#########..##.....#............","............##....##..#########..##....##............","............##....##..#########..##....##............",".....####....##...##.###########.##...##....####.....",".......####..####.##.###########.##.####..####.......",".......######.###....###########....###.######.......",".......######..##....###########....##..######.......",".......#######..##...###########...##..#######.......",".........######..###..#########..###..######.........",".........#######.###..#########..###.#######.........","..........#######.###..#######..###.#######..........","............#####...##..#####..##...#####............","...#######.....####...#...#...#...####.....#######...",".....########..........#.....#..........########.....","......#################...#...#################......","........##############..#####..##############........","........############...#######...############........","............#####.....####.####.....#####............","....................####.....####....................",".................#####.........#####................."];
+  const COLS=LOTUS[0].length, ROWS=LOTUS.length;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // small header mark + favicon from the same grid
+  let rects='';
+  LOTUS.forEach((r,y)=>{[...r].forEach((c,x)=>{if(c==='#')rects+=`<rect x="${x}" y="${y}" width="1" height="1"/>`})});
+  const mark=document.getElementById('mark');
+  mark.innerHTML=`<g fill="currentColor">${rects}</g>`;
+  try{
+    const fav=document.createElement('link');fav.rel='icon';fav.type='image/svg+xml';
+    fav.href='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -6 61 54" shape-rendering="crispEdges"><rect x="-4" y="-6" width="61" height="54" fill="#fff"/><g fill="#000">${rects}</g></svg>`);
+    document.head.appendChild(fav);
+  }catch(e){}
+
+  // product icons (9x9 pixel art)
+  const ICONS={
+    shop:["#########","#.#.#.#.#","#########",".........",".#######.",".#.....#.",".#.###.#.",".#.#.#.#.",".#######."],
+    voice:["...###...","...###...","...###...",".#.###.#.",".#.###.#.",".#..#..#.","..#####..","....#....","..#####.."],
+    kept:["#########","#.......#","#......##","#.....#.#","##...#..#","#.#.#...#","#..#....#","#.......#","#########"]
+  };
+  document.querySelectorAll('[data-icon]').forEach(el=>{
+    const g=ICONS[el.dataset.icon];let s='';
+    g.forEach((r,y)=>[...r].forEach((c,x)=>{if(c==='#')s+=`<rect x="${x}" y="${y}" width="1" height="1"/>`}));
+    el.innerHTML=`<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true">${s}</svg>`;
+  });
+
+  // theme invert
+  const root=document.documentElement;
+  const isDark=()=>root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+  try{const t=localStorage.getItem('kyrava-theme');if(t)root.dataset.theme=t;}catch(e){}
+  document.getElementById('invert').addEventListener('click',()=>{
+    const next=isDark()?'light':'dark';root.dataset.theme=next;
+    try{localStorage.setItem('kyrava-theme',next)}catch(e){}
+    readInk();kick();
+  });
+
+  // IST clock
+  const clock=document.getElementById('clock');
+  const fmt=new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',hour12:false});
+  const tick=()=>{clock.textContent='Bengaluru · '+fmt.format(new Date())+' IST'};tick();setInterval(tick,15000);
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // copy email
+  const copyBtn=document.getElementById('copy'),email=document.getElementById('email');
+  copyBtn.addEventListener('click',()=>{
+    const done=t=>{copyBtn.textContent=t;setTimeout(()=>copyBtn.textContent='Copy',1600)};
+    const sel=()=>{const r=document.createRange();r.selectNodeContents(email);const s=getSelection();s.removeAllRanges();s.addRange(r);done('Selected')};
+    try{navigator.clipboard.writeText(email.textContent).then(()=>done('Copied'),sel)}catch(e){sel()}
+  });
+
+  // pixel lotus
+  const cv=document.getElementById('lotus'),ctx=cv.getContext('2d'),stage=document.getElementById('stage');
+  const PAD=1, GW=COLS+PAD*2, GH=ROWS+PAD*2+3;
+  const pts=[];
+  LOTUS.forEach((r,y)=>[...r].forEach((c,x)=>{
+    if(c!=='#')return;
+    const sparkle=(y<=9&&!(x>=22&&x<=30&&y>=6))||(y>=18&&y<=20&&(x<6||x>46));
+    pts.push({hx:x+PAD,hy:y+PAD+1.5,x:0,y:0,vx:0,vy:0,sp:sparkle,ph:Math.random()*6.28});
+  }));
+  let cell=8,W=0,H=0,dpr=1,ink='#000',mouse={x:-1e3,y:-1e3},running=false,bloom=0,last=0;
+  function readInk(){ink=getComputedStyle(root).getPropertyValue('--ink').trim()||'#000'}
+  function size(){
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    const r=stage.getBoundingClientRect();
+    cell=Math.max(2,Math.floor(Math.min(r.width/GW,r.height/GH)));
+    W=r.width;H=r.height;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function scatter(){
+    pts.forEach(p=>{
+      if(reduce){p.x=p.hx;p.y=p.hy;return}
+      const a=Math.random()*6.28,d=20+Math.random()*30;
+      p.x=GW/2+Math.cos(a)*d;p.y=GH/2+Math.sin(a)*d;p.vx=p.vy=0;
+    });
+  }
+  function draw(t){
+    const ox=Math.floor((W-GW*cell)/2),oy=Math.floor((H-GH*cell)/2);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle=ink;
+    let moving=false;
+    const mx=(mouse.x-ox)/cell,my=(mouse.y-oy)/cell;
+    for(const p of pts){
+      if(!reduce){
+        let ax=(p.hx-p.x)*0.06,ay=(p.hy-p.y)*0.06;
+        const dx=p.x-mx,dy=p.y-my,d2=dx*dx+dy*dy;
+        if(d2<64){const f=(64-d2)/64*0.9;const d=Math.sqrt(d2)||1;ax+=dx/d*f;ay+=dy/d*f}
+        if(bloom>0){const dx2=p.x-GW/2,dy2=p.y-GH*0.62,d=Math.hypot(dx2,dy2)||1;ax+=dx2/d*bloom*0.5;ay+=dy2/d*bloom*0.5}
+        p.vx=(p.vx+ax)*0.78;p.vy=(p.vy+ay)*0.78;p.x+=p.vx;p.y+=p.vy;
+        if(Math.abs(p.vx)+Math.abs(p.vy)>0.004||Math.abs(p.hx-p.x)+Math.abs(p.hy-p.y)>0.02)moving=true;
+      }
+      let a=1;
+      if(p.sp&&!reduce){a=0.35+0.65*(0.5+0.5*Math.sin(t/420+p.ph));moving=true}
+      ctx.globalAlpha=a;
+      ctx.fillRect(ox+Math.round(p.x*cell),oy+Math.round(p.y*cell),cell,cell);
+    }
+    ctx.globalAlpha=1;
+    if(bloom>0)bloom=Math.max(0,bloom-0.08);
+    return moving;
+  }
+  function loop(t){
+    const moving=draw(t);
+    if(moving&&!document.hidden){requestAnimationFrame(loop)}else{running=false}
+  }
+  function kick(){if(!running){running=true;requestAnimationFrame(loop)}}
+  const pos=e=>{const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;kick()};
+  cv.addEventListener('pointermove',pos);
+  cv.addEventListener('pointerleave',()=>{mouse.x=mouse.y=-1e3;kick()});
+  cv.addEventListener('pointerdown',e=>{pos(e);if(!reduce){bloom=1;kick()}});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick()});
+  new ResizeObserver(()=>{size();kick()}).observe(stage);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{readInk();kick()});
+  readInk();size();scatter();kick();
+})();
+</script>
+
+</body>
+</html>
