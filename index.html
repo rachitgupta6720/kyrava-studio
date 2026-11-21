@@ -21,11 +21,6 @@
   --ink-3:#8a8a8a;
   --rule:#e4e4e4;
   --grid:#f1f1f1;
-  --saffron:#FF9933;
-  --green:#138808;
-  --chakra:#06038D;
-  --saffron-ink:#C25E00;
-  --green-ink:#0F6B06;
   --f-head:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-pixel:"Pixelify Sans","Silkscreen",ui-monospace,monospace;
   --f-body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -34,8 +29,8 @@
   --wrap:960px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#0a0a0a;--ink:#f5f5f5;--ink-2:#b4b4b4;--ink-3:#767676;--rule:#262626;--grid:#141414;--chakra:#8C8AFF;--saffron-ink:#FFB066;--green-ink:#4CC23F;color-scheme:dark}}
-:root[data-theme="dark"]{--paper:#0a0a0a;--ink:#f5f5f5;--ink-2:#b4b4b4;--ink-3:#767676;--rule:#262626;--grid:#141414;--chakra:#8C8AFF;--saffron-ink:#FFB066;--green-ink:#4CC23F;color-scheme:dark}
+  --paper:#0a0a0a;--ink:#f5f5f5;--ink-2:#b4b4b4;--ink-3:#767676;--rule:#262626;--grid:#141414;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0a0a0a;--ink:#f5f5f5;--ink-2:#b4b4b4;--ink-3:#767676;--rule:#262626;--grid:#141414;color-scheme:dark}
 :root[data-theme="light"]{color-scheme:light}
 
 *{box-sizing:border-box}
@@ -70,14 +65,6 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1
 .invert:hover{background:var(--ink);color:var(--paper)}
 .invert:hover i{outline-color:var(--paper)}
 
-/* tricolor */
-.tri{display:flex;height:4px}
-.tri i{flex:1;display:block}
-.tri i:nth-child(1){background:var(--saffron)}
-.tri i:nth-child(2){background:var(--paper);display:flex;justify-content:center;align-items:center}
-.tri i:nth-child(2)::after{content:"";width:4px;height:4px;background:var(--chakra)}
-.tri i:nth-child(3){background:var(--green)}
-.bharat{background:linear-gradient(180deg,var(--saffron-ink) 0 38%,var(--ink) 38% 62%,var(--green-ink) 62% 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 /* hero */
 .hero{padding-block:56px 40px}
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
@@ -125,7 +112,7 @@ h2{font-family:var(--f-head);font-weight:600;font-size:26px;margin:0;letter-spac
 .pname{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin:0 0 6px}
 .pname h3{font-family:var(--f-head);font-weight:600;font-size:30px;line-height:1;margin:0;letter-spacing:-.025em}
 .tag{font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid currentColor;padding:5px 7px}
-.tag.live::before{content:"";display:inline-block;width:6px;height:6px;background:var(--green);margin-right:6px;vertical-align:1px;animation:blink 1.2s steps(1) infinite}
+.tag.live::before{content:"";display:inline-block;width:6px;height:6px;background:currentColor;margin-right:6px;vertical-align:1px;animation:blink 1.2s steps(1) infinite}
 .what{font-size:17px;color:var(--ink);margin:0 0 14px;max-width:56ch}
 .why{font-size:15px;color:var(--ink-2);margin:0;max-width:62ch}
 .why b{font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:8px;opacity:.7}
@@ -135,8 +122,6 @@ h2{font-family:var(--f-head);font-weight:600;font-size:26px;margin:0;letter-spac
 .product > a:hover .arr{transform:translateX(6px)}
 .product.soon .row{color:var(--ink)}
 .product.soon .icon{opacity:.55}
-.product.soon .tag{color:var(--saffron-ink)}
-.soon-bar i{background:var(--saffron)!important}
 .soon-bar{display:inline-flex;gap:3px;vertical-align:middle;margin-left:4px}
 .soon-bar i{width:6px;height:6px;background:currentColor;opacity:.15;animation:load 1.8s steps(1) infinite}
 .soon-bar i:nth-child(2){animation-delay:.3s}.soon-bar i:nth-child(3){animation-delay:.6s}.soon-bar i:nth-child(4){animation-delay:.9s}
@@ -184,7 +169,7 @@ h2{font-family:var(--f-head);font-weight:600;font-size:26px;margin:0;letter-spac
 .mail code{font:500 15px var(--f-mono);padding:0 14px;height:44px;display:flex;align-items:center;user-select:all}
 .mail button{appearance:none;border:0;border-left:1px solid var(--ink);background:var(--ink);color:var(--paper);font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;height:44px;padding:0 14px;cursor:pointer;min-width:76px}
 
-footer{padding-block:0 32px;font:12px var(--f-mono);color:var(--ink-3)}
+footer{border-top:1px solid var(--ink);padding-block:22px 32px;font:12px var(--f-mono);color:var(--ink-3)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px}
 footer a{color:var(--ink-2)}
 
@@ -213,7 +198,6 @@ footer a{color:var(--ink-2)}
 </head>
 <body>
 <header>
-  <div class="tri" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Kyrava Studio home"><svg id="mark" viewBox="0 0 53 42" aria-hidden="true" shape-rendering="crispEdges"></svg>Kyrava Studio</a>
     <div class="hdr-right">
@@ -228,7 +212,7 @@ footer a{color:var(--ink-2)}
     <div class="wrap">
       <div>
         <p class="eyebrow">Kyrava Studio · Bengaluru, India</p>
-        <h1>Small, useful software for everyday <span class="bharat">Bharat</span>.</h1>
+        <h1>Small, useful software for everyday Bharat.</h1>
         <p class="lede">We build technology rooted in Indian daily life and real needs: <strong>a shop for every seller, a voice for every keyboard, a memory for every promise.</strong> Each one made with restraint, by one person.</p>
         <div class="hero-ctas">
           <a class="btn" href="#apps">See the apps <span aria-hidden="true">↓</span></a>
@@ -337,7 +321,6 @@ footer a{color:var(--ink-2)}
 </main>
 
 <footer>
-  <div class="tri" aria-hidden="true" style="margin-bottom:22px"><i></i><i></i><i></i></div>
   <div class="wrap">
     <span>© <span id="yr">2026</span> Kyrava Studio · Bengaluru, India</span>
     <span><a href="https://myshop.kyrava.in" target="_blank" rel="noopener">MyShop</a> · <a href="https://rachitgupta6720.github.io/freeflo/" target="_blank" rel="noopener">Freeflo</a> · Kept</span>
@@ -384,11 +367,13 @@ footer a{color:var(--ink-2)}
     monogram(el);
     const img=new Image();img.alt='';
     img.onload=()=>{
-      const N=28,c=document.createElement('canvas');c.width=c.height=N;
-      const x=c.getContext('2d');const m=Math.min(img.naturalWidth,img.naturalHeight);
+      const N=48,c=document.createElement('canvas');c.width=c.height=N;
+      const x=c.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';const m=Math.min(img.naturalWidth,img.naturalHeight);
       x.drawImage(img,(img.naturalWidth-m)/2,(img.naturalHeight-m)/2,m,m,0,0,N,N);
       const d=x.getImageData(0,0,N,N),p=d.data;
-      for(let i=0;i<p.length;i+=4){const l=.3*p[i]+.59*p[i+1]+.11*p[i+2];const v=l>150?255:l>95?150:l>55?70:0;p[i]=p[i+1]=p[i+2]=v}
+      const L=[];for(let i=0;i<p.length;i+=4)L.push(.3*p[i]+.59*p[i+1]+.11*p[i+2]);
+      const S=[...L].sort((a,b)=>a-b),rank=v=>{let lo=0,hi=S.length;while(lo<hi){const m=(lo+hi)>>1;S[m]<v?lo=m+1:hi=m}return lo/S.length};
+      L.forEach((l,j)=>{const v=Math.round(rank(l)*4)*63.75;p[j*4]=p[j*4+1]=p[j*4+2]=v});
       x.putImageData(d,0,0);
       el.innerHTML='';el.appendChild(c);el.appendChild(img);
     };
@@ -426,11 +411,10 @@ footer a{color:var(--ink-2)}
   LOTUS.forEach((r,y)=>[...r].forEach((c,x)=>{
     if(c!=='#')return;
     const sparkle=(y<=9&&!(x>=22&&x<=30&&y>=6))||(y>=18&&y<=20&&(x<6||x>46));
-    const leaf=y>=34||(y>=25&&(x<20||x>32));
-    pts.push({hx:x+PAD,hy:y+PAD+1.5,x:0,y:0,vx:0,vy:0,sp:sparkle,c:sparkle?'s':leaf?'g':'i',ph:Math.random()*6.28});
+    pts.push({hx:x+PAD,hy:y+PAD+1.5,x:0,y:0,vx:0,vy:0,sp:sparkle,ph:Math.random()*6.28});
   }));
-  let cell=8,W=0,H=0,dpr=1,ink='#000',COL={},mouse={x:-1e3,y:-1e3},running=false,bloom=0,last=0;
-  function readInk(){const cs=getComputedStyle(root);ink=cs.getPropertyValue('--ink').trim()||'#000';COL={i:ink,s:cs.getPropertyValue('--saffron').trim()||'#FF9933',g:cs.getPropertyValue('--green').trim()||'#138808'}}
+  let cell=8,W=0,H=0,dpr=1,ink='#000',mouse={x:-1e3,y:-1e3},running=false,bloom=0,last=0;
+  function readInk(){ink=getComputedStyle(root).getPropertyValue('--ink').trim()||'#000'}
   function size(){
     dpr=Math.min(2,window.devicePixelRatio||1);
     const r=stage.getBoundingClientRect();
@@ -461,7 +445,7 @@ footer a{color:var(--ink-2)}
       }
       let a=1;
       if(p.sp&&!reduce){a=0.35+0.65*(0.5+0.5*Math.sin(t/420+p.ph));moving=true}
-      ctx.globalAlpha=a;ctx.fillStyle=COL[p.c]||ink;
+      ctx.globalAlpha=a;
       ctx.fillRect(ox+Math.round(p.x*cell),oy+Math.round(p.y*cell),cell,cell);
     }
     ctx.globalAlpha=1;
