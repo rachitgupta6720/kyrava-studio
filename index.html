@@ -142,6 +142,34 @@ h2{font-family:var(--f-pixel);font-weight:500;font-size:28px;margin:0;letter-spa
 .principles h4{font-family:var(--f-pixel);font-weight:500;font-size:19px;margin:0 0 8px}
 .principles p{margin:0;font-size:15px;color:var(--ink-2)}
 
+/* people */
+.people{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-bottom:1px solid var(--rule)}
+.person + .person{border-left:1px solid var(--rule)}
+.person a{display:flex;gap:20px;align-items:center;padding:24px 16px;text-decoration:none;color:var(--ink);position:relative;isolation:isolate}
+.person a::before{content:"";position:absolute;inset:0;background:var(--ink);z-index:-1;clip-path:inset(0 100% 0 0);transition:clip-path .28s steps(8)}
+.person a:hover::before,.person a:focus-visible::before{clip-path:inset(0 0 0 0)}
+.person a:hover,.person a:focus-visible{color:var(--paper)}
+.person a:hover .pr,.person a:focus-visible .pr{color:var(--paper)}
+.person a:focus-visible{outline-offset:-2px}
+.avatar{flex:none;width:96px;height:96px;border:1px solid currentColor;background:var(--paper);display:block;position:relative;overflow:hidden}
+.avatar canvas,.avatar img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.avatar canvas{image-rendering:pixelated}
+.avatar img{object-fit:cover;filter:grayscale(1) contrast(1.1);opacity:0;transition:opacity .25s steps(4)}
+.person a:hover .avatar img,.person a:focus-visible .avatar img{opacity:1}
+.avatar svg{width:100%;height:100%;display:block}
+.avatar svg rect{fill:var(--ink)}
+.pinfo{display:flex;flex-direction:column;gap:4px;min-width:0}
+.pn{font-family:var(--f-pixel);font-size:24px;line-height:1.1}
+.pr{font-size:15px;color:var(--ink-2)}
+.pl{font:500 12px var(--f-mono);margin-top:6px;display:flex;gap:6px}
+.pl .arr{transition:transform .2s steps(3)}
+.person a:hover .pl .arr{transform:translateX(4px)}
+@media (max-width:760px){
+  .people{grid-template-columns:1fr}
+  .person + .person{border-left:0;border-top:1px solid var(--rule)}
+  .avatar{width:80px;height:80px}
+}
+
 /* contact */
 .contact{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding-top:28px}
 .contact p{margin:0;font-size:18px;color:var(--ink-2);max-width:44ch}
@@ -277,6 +305,34 @@ footer a{color:var(--ink-2)}
     </div>
   </section>
 
+  <section id="people">
+    <div class="wrap">
+      <div class="sec-head"><h2>People</h2><p>Collaborators building these apps and services</p></div>
+      <ul class="people">
+        <li class="person">
+          <a href="https://www.linkedin.com/in/rachitgupta06/" target="_blank" rel="noopener">
+            <span class="avatar" data-photo="people/rachit.jpg" data-initials="RG"></span>
+            <span class="pinfo">
+              <span class="pn">Rachit Gupta</span>
+              <span class="pr">Founder · builds MyShop, Freeflo and Kept</span>
+              <span class="pl">LinkedIn <span class="arr" aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </li>
+        <li class="person">
+          <a href="https://www.linkedin.com/in/subhanjali-gupta-31771a194/" target="_blank" rel="noopener">
+            <span class="avatar" data-photo="people/subhanjali.jpg" data-initials="SG"></span>
+            <span class="pinfo">
+              <span class="pn">Subhanjali Gupta</span>
+              <span class="pr">Collaborator · Kyrava Studio</span>
+              <span class="pl">LinkedIn <span class="arr" aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="wrap">
       <div class="sec-head"><h2>Work with us</h2><p>Partners, feedback, ideas</p></div>
@@ -322,6 +378,28 @@ footer a{color:var(--ink-2)}
     const g=ICONS[el.dataset.icon];let s='';
     g.forEach((r,y)=>[...r].forEach((c,x)=>{if(c==='#')s+=`<rect x="${x}" y="${y}" width="1" height="1"/>`}));
     el.innerHTML=`<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true">${s}</svg>`;
+  });
+
+  // people avatars: pixelated mono photo if present, else pixel monogram
+  const FONT={R:["####.","#...#","#...#","####.","#.#..","#..#.","#...#"],G:[".###.","#...#","#....","#.###","#...#","#...#",".###."],S:[".####","#....","#....",".###.","....#","....#","####."]};
+  function monogram(el){
+    const [a,b]=el.dataset.initials.split('');let s='';
+    [[a,3],[b,9]].forEach(([ch,ox])=>FONT[ch].forEach((r,y)=>[...r].forEach((c,x)=>{if(c==='#')s+=`<rect x="${ox+x}" y="${5+y}" width="1" height="1"/>`})));
+    el.innerHTML=`<svg viewBox="0 0 17 17" shape-rendering="crispEdges" aria-hidden="true">${s}</svg>`;
+  }
+  document.querySelectorAll('.avatar').forEach(el=>{
+    monogram(el);
+    const img=new Image();img.alt='';
+    img.onload=()=>{
+      const N=28,c=document.createElement('canvas');c.width=c.height=N;
+      const x=c.getContext('2d');const m=Math.min(img.naturalWidth,img.naturalHeight);
+      x.drawImage(img,(img.naturalWidth-m)/2,(img.naturalHeight-m)/2,m,m,0,0,N,N);
+      const d=x.getImageData(0,0,N,N),p=d.data;
+      for(let i=0;i<p.length;i+=4){const l=.3*p[i]+.59*p[i+1]+.11*p[i+2];const v=l>150?255:l>95?150:l>55?70:0;p[i]=p[i+1]=p[i+2]=v}
+      x.putImageData(d,0,0);
+      el.innerHTML='';el.appendChild(c);el.appendChild(img);
+    };
+    img.src=el.dataset.photo;
   });
 
   // theme invert
