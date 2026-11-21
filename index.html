@@ -98,15 +98,6 @@ h1{font-family:var(--f-head);font-weight:600;font-size:clamp(38px,6.4vw,68px);li
 .stage canvas{width:100%;height:100%;display:block;cursor:crosshair}
 .stage-hint{position:absolute;right:0;bottom:-4px;font:12px var(--f-mono);color:var(--ink-3)}
 
-/* building solo divider */
-.solo{display:flex;align-items:center;gap:10px;margin:44px 0 0;color:var(--ink)}
-.solo svg{flex:1;height:14px;min-width:0}
-.solo svg.r{transform:scaleX(-1)}
-.solo span{font-family:var(--f-pixel);font-size:22px;white-space:nowrap}
-.solo .dot{animation:blink 1.6s steps(1) infinite}
-.solo .dot:nth-of-type(2){animation-delay:.2s}.solo .dot:nth-of-type(3){animation-delay:.4s}
-@keyframes blink{0%,60%{opacity:1}61%,100%{opacity:.15}}
-
 /* sections */
 section{padding-block:56px}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:0}
@@ -211,7 +202,6 @@ footer a{color:var(--ink-2)}
   .principles div,.principles div + div{padding:18px 0;border-left:0;border-top:1px solid var(--rule)}
   .contact{grid-template-columns:1fr}
   .hdr-right .clock{display:none}
-  .solo span{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before{animation:none!important;transition:none!important}
@@ -248,21 +238,6 @@ footer a{color:var(--ink-2)}
       <div class="stage" id="stage">
         <canvas id="lotus" aria-label="Kyrava lotus, drawn in pixels. Move over it to scatter the pixels; tap to bloom." role="img"></canvas>
         <span class="stage-hint">move to scatter · click to bloom</span>
-      </div>
-    </div>
-    <div class="wrap">
-      <div class="solo" aria-label="building solo">
-        <svg viewBox="0 0 160 14" preserveAspectRatio="xMaxYMid meet" aria-hidden="true" shape-rendering="crispEdges">
-          <rect x="0" y="8" width="96" height="2" fill="currentColor"/><rect x="96" y="6" width="4" height="2" fill="currentColor"/><rect x="100" y="4" width="10" height="2" fill="currentColor"/><rect x="110" y="6" width="4" height="2" fill="currentColor"/><rect x="114" y="8" width="8" height="2" fill="currentColor"/>
-          <rect x="122" y="5" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/>
-          <rect class="dot" x="138" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="145" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="152" y="10" width="3" height="3" fill="currentColor"/>
-        </svg>
-        <span>building solo</span>
-        <svg class="r" viewBox="0 0 160 14" preserveAspectRatio="xMaxYMid meet" aria-hidden="true" shape-rendering="crispEdges">
-          <rect x="0" y="8" width="96" height="2" fill="currentColor"/><rect x="96" y="6" width="4" height="2" fill="currentColor"/><rect x="100" y="4" width="10" height="2" fill="currentColor"/><rect x="110" y="6" width="4" height="2" fill="currentColor"/><rect x="114" y="8" width="8" height="2" fill="currentColor"/>
-          <rect x="122" y="5" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/>
-          <rect class="dot" x="138" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="145" y="10" width="3" height="3" fill="currentColor"/><rect class="dot" x="152" y="10" width="3" height="3" fill="currentColor"/>
-        </svg>
       </div>
     </div>
   </div>
