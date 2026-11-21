@@ -137,6 +137,12 @@ h2{font-family:var(--f-head);font-weight:600;font-size:26px;margin:0;letter-spac
 .principles h4{font-family:var(--f-head);font-weight:600;font-size:18px;letter-spacing:-.01em;margin:0 0 8px}
 .principles p{margin:0;font-size:15px;color:var(--ink-2)}
 
+/* writing */
+.writing{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 32px;align-items:center;padding-block:28px;border-bottom:1px solid var(--rule)}
+.w-name{font-family:var(--f-head);font-weight:600;font-size:22px;letter-spacing:-.02em;margin:0 0 6px}
+.w-copy{margin:0;font-size:16px;color:var(--ink-2);max-width:56ch}
+@media (max-width:760px){.writing{grid-template-columns:1fr}.writing .btn{justify-self:start}}
+
 /* people */
 .people{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-bottom:1px solid var(--rule)}
 .person + .person{border-left:1px solid var(--rule)}
@@ -290,6 +296,19 @@ footer a{color:var(--ink-2)}
         <div><h4>Rooted in daily life</h4><p>Each app starts from something people in India already do every day, then removes the friction from it.</p></div>
         <div><h4>Private by default</h4><p>Where it can, the work happens on your own device. Freeflo and Kept never need to send your voice anywhere.</p></div>
         <div><h4>Made with restraint</h4><p>Few screens, few settings, plain words. If a feature needs a tutorial, it gets cut or redesigned.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing">
+    <div class="wrap">
+      <div class="sec-head"><h2>Writing</h2><p>Building and writing, side by side</p></div>
+      <div class="writing">
+        <div>
+          <p class="w-name">Thinking in Progress</p>
+          <p class="w-copy">We write while we build. Notes on products, people, experiments, and everything we are still figuring out, published on Substack as we go.</p>
+        </div>
+        <a class="btn" href="https://subhanjaligupta.substack.com/" target="_blank" rel="noopener">Read on Substack <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
